@@ -134,16 +134,6 @@ export const DashboardLayout: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <a
-              href="/api/docs/index.html"
-              target="_blank"
-              rel="noreferrer"
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition"
-            >
-              <Code2 className="w-3.5 h-3.5 text-green-600" />
-              <span>Swagger API Docs</span>
-            </a>
-
             <div className="text-right">
               <p className="text-xs font-bold text-slate-800 leading-tight">{user?.name}</p>
               <span className="inline-block text-[9px] font-bold uppercase bg-green-100 text-green-800 px-2 py-0.5 rounded-full border border-green-200">
