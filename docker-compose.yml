@@ -1,0 +1,14 @@
+services:
+  react-app:
+    container_name: cgr_pos_react_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+      - CHOKIDAR_USEPOLLING=true
+    restart: unless-stopped

@@ -1,0 +1,22 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Salin definisi package
+COPY package*.json ./
+
+# 1. Install dependensi secara resmi di dalam image
+RUN npm install
+
+# 2. Backup seluruh node_modules (beserta symlink .bin yang utuh) ke folder aman
+RUN cp -a node_modules /node_modules_backup
+
+# Salin sisa kode proyek
+COPY . .
+
+EXPOSE 3000
+
+# Saat container menyala:
+# Jika /app/node_modules/.bin/vite belum ada (karena tertimpa mount dari host),
+# salin dari backup dengan -a (didukung penuh oleh Alpine & menjaga symlink .bin)
+CMD sh -c "if [ ! -f /app/node_modules/.bin/vite ]; then echo '>> Menyalin node_modules ke host...' && mkdir -p /app/node_modules && cp -a /node_modules_backup/. /app/node_modules/; fi && npm run dev"
