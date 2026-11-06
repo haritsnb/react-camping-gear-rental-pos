@@ -183,6 +183,18 @@ export const Customers: React.FC = () => {
     }
   };
 
+  // FUNGSI HELPER: Arahkan URL relatif foto ke Host Backend (Port 8080)
+  const getPhotoUrl = (url?: string) => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    
+    // Ambil base url backend (contoh: http://localhost:8080/api -> http://localhost:8080)
+    const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+    const backendOrigin = apiBase.replace(/\/api\/?$/, '');
+    
+    return `${backendOrigin}${url.startsWith('/') ? '' : '/'}${url}`;
+  };
+
   return (
     <div className="space-y-4">
       {/* Top Action Bar */}
@@ -295,7 +307,7 @@ export const Customers: React.FC = () => {
                     <td className="p-3 text-center">
                       {c.identity_photo_url ? (
                         <a
-                          href={c.identity_photo_url}
+                          href={getPhotoUrl(c.identity_photo_url)}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-semibold underline"
